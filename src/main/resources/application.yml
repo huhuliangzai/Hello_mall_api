@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: HelloMall
+
+
+server:
+  port: 8080
+
+
+mybatis:
+  type-aliases-package: com.liangzai.hello_mall_api.mybatis.entity
+  mapper-locations: classpath:mappers/*xml
