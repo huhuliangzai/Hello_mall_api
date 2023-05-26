@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "spring.datasource.username.password",
+      "type": "java.lang.String",
+      "description": "Description for spring.datasource.username.password."
+    },
+    {
+      "name": "mybatis.type-aliases-package",
+      "type": "java.lang.String",
+      "description": "com.liangzai.hello_mall_api.mybatis.entity"
+    }
+  ] }
