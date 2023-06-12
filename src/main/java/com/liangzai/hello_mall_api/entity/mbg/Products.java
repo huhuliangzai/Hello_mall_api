@@ -25,7 +25,7 @@ import lombok.EqualsAndHashCode;
      * 商品ID
      */
         @TableId(value = "id", type = IdType.AUTO)
-      private Integer id;
+      private Long id;
 
       /**
      * 商品名称
@@ -45,7 +45,7 @@ import lombok.EqualsAndHashCode;
       /**
      * 商品库存数量
      */
-      private Integer quantity;
+      private String quantity;
 
       /**
      * 商品主图
@@ -55,7 +55,7 @@ import lombok.EqualsAndHashCode;
       /**
      * 商品分类ID
      */
-      private Integer categoryId;
+      private Long categoryId;
 
 
 }

@@ -5,6 +5,7 @@ import com.liangzai.hello_mall_api.entity.mbg.Users;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.liangzai.hello_mall_api.entity.dto.UserLogin;
 import com.liangzai.hello_mall_api.entity.dto.UserRegister;
+import com.liangzai.hello_mall_api.entity.vo.LoginVo;
 
 /**
  * <p>
@@ -18,8 +19,8 @@ public interface UsersService extends IService<Users> {
 
     boolean register(UserRegister userRegister);
 
-
     Users selectByLoginName(String loginName);
 
     Result login(UserLogin userLogin);
+
 }

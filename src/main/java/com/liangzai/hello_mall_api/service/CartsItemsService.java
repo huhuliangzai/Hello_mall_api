@@ -1,7 +1,9 @@
 package com.liangzai.hello_mall_api.service;
 
+import com.liangzai.hello_mall_api.common.api.Result;
 import com.liangzai.hello_mall_api.entity.mbg.CartsItems;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.liangzai.hello_mall_api.entity.mbg.Users;
 
 /**
  * <p>
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface CartsItemsService extends IService<CartsItems> {
 
+    Result getCartsItemByUser(Users users);
 }

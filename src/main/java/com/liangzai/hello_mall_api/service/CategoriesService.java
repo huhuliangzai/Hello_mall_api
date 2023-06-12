@@ -1,5 +1,6 @@
 package com.liangzai.hello_mall_api.service;
 
+import com.liangzai.hello_mall_api.common.api.Result;
 import com.liangzai.hello_mall_api.entity.mbg.Categories;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface CategoriesService extends IService<Categories> {
 
+    Result getAllCategories(Categories categories);
 }

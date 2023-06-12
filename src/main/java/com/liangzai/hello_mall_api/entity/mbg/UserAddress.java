@@ -27,12 +27,12 @@ import lombok.EqualsAndHashCode;
      * 用户地址id
      */
         @TableId(value = "id", type = IdType.AUTO)
-      private Integer id;
+      private Long id;
 
       /**
      * 用户表的主键关联，表示该地址属于哪个用户
      */
-      private Integer userId;
+      private Long userId;
 
       /**
      * 收件人姓名
@@ -42,7 +42,7 @@ import lombok.EqualsAndHashCode;
       /**
      * 收件人电话号码
      */
-      private Integer phoneNumber;
+      private String phoneNumber;
 
       /**
      * 收件人详细地址

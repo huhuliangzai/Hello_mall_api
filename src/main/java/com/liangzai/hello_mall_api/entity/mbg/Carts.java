@@ -25,12 +25,12 @@ import lombok.EqualsAndHashCode;
      * 购物车ID
      */
         @TableId(value = "id", type = IdType.AUTO)
-      private Integer id;
+      private Long id;
 
       /**
      * 用户ID，关联用户表
      */
-      private Integer userId;
+      private Long userId;
 
       /**
      * 购物车创建时间

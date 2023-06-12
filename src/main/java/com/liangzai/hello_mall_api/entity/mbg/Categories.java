@@ -24,7 +24,7 @@ import lombok.EqualsAndHashCode;
      * 分类ID
      */
         @TableId(value = "id", type = IdType.AUTO)
-      private Integer id;
+      private Long id;
 
       /**
      * 分类名称
@@ -34,7 +34,7 @@ import lombok.EqualsAndHashCode;
       /**
      * 父分类ID，表示当前分类是哪个分类的子分类
      */
-      private Integer parentId;
+      private Long parentId;
 
 
 }

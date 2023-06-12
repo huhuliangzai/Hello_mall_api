@@ -5,6 +5,7 @@ import com.liangzai.hello_mall_api.common.api.Result;
 import com.liangzai.hello_mall_api.entity.mbg.Users;
 import com.liangzai.hello_mall_api.entity.dto.UserLogin;
 import com.liangzai.hello_mall_api.entity.dto.UserRegister;
+import com.liangzai.hello_mall_api.entity.vo.LoginVo;
 import com.liangzai.hello_mall_api.mapper.UsersMapper;
 import com.liangzai.hello_mall_api.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +25,10 @@ import java.util.List;
 public class UsersController {
 
     @Autowired
-    private UsersMapper usersMapper;
-    @Autowired
     private UsersService usersService;
 
 
     @PostMapping("register")
-    @ResponseBody
     public Result register(@RequestBody UserRegister userRegister){
         String userName = userRegister.getUserName();
         String password = userRegister.getPassword();
@@ -47,9 +45,7 @@ public class UsersController {
     }
 
 
-    @CrossOrigin
     @PostMapping("/login")
-    @ResponseBody
     public Result login(@RequestBody UserLogin userLogin){
         String userName = userLogin.getUserName();
         String password = userLogin.getPassword();
@@ -58,5 +54,7 @@ public class UsersController {
 //        userLogin.setPassword(DigestUtils.md5DigestAsHex(userLogin.getPassword().getBytes()));
         return usersService.login(userLogin);
     }
+
+
 }
 

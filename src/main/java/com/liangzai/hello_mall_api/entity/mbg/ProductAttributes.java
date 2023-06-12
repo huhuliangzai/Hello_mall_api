@@ -24,7 +24,7 @@ import lombok.EqualsAndHashCode;
      * 商品属性id
      */
         @TableId(value = "id", type = IdType.AUTO)
-      private Integer id;
+      private Long id;
 
       /**
      * 商品属性名
@@ -39,7 +39,7 @@ import lombok.EqualsAndHashCode;
       /**
      * 商品id
      */
-      private Integer productId;
+      private Long productId;
 
 
 }

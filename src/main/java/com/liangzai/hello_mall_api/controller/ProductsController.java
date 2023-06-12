@@ -1,7 +1,11 @@
 package com.liangzai.hello_mall_api.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.liangzai.hello_mall_api.common.api.Result;
+import com.liangzai.hello_mall_api.entity.mbg.Categories;
+import com.liangzai.hello_mall_api.service.ProductsService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
 
@@ -13,9 +17,25 @@ import org.springframework.stereotype.Controller;
  * @author admin
  * @since 2023-05-26
  */
-@Controller
+@RestController
 @RequestMapping("/products")
 public class ProductsController {
+
+    @Autowired
+    ProductsService productsService;
+
+    @RequestMapping("/getProducts")
+    public Result getProducts(@RequestBody Categories categories){
+        String category = categories.getCategoryName();
+        System.out.println(category);
+        return productsService.getProducts(categories);
+    }
+
+    @GetMapping("/getHotSaleProducts")
+    public Result getHotSaleProducts(Categories categories){
+        return productsService.getHotSaleProducts(categories);
+    }
+
 
 }
 

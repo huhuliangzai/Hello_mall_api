@@ -26,17 +26,17 @@ import lombok.EqualsAndHashCode;
      * 购物车商品ID
      */
         @TableId(value = "id", type = IdType.AUTO)
-      private Integer id;
+      private Long id;
 
       /**
      * 购物车ID,关联购物车表
      */
-      private Integer cartId;
+      private Long cartId;
 
       /**
      * 商品ID，关联商品表
      */
-      private Integer productId;
+      private Long productId;
 
       /**
      * 商品名称
@@ -49,10 +49,20 @@ import lombok.EqualsAndHashCode;
       private BigDecimal productPrice;
 
       /**
+       * 商品主图
+      */
+      private String image;
+
+      /**
      * 商品数量
      */
       @TableField("Quantity")
     private Integer Quantity;
+
+      /**
+      * 商品总价
+      */
+  private BigDecimal total;
 
 
 }

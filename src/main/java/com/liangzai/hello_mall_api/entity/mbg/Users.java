@@ -53,9 +53,19 @@ import lombok.EqualsAndHashCode;
       private String userHabby;
 
       /**
+      * 用户性别
+      */
+      private String gender;
+
+      /**
      * 用户地址
      */
       private String address;
+
+    /**
+     * 用户地址
+    */
+      private String avatar;
 
       /**
      * 用户创建时间

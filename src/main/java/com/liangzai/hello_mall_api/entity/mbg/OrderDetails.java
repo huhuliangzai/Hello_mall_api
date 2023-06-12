@@ -25,17 +25,17 @@ import lombok.EqualsAndHashCode;
      * 订单详情ID
      */
         @TableId(value = "id", type = IdType.AUTO)
-      private Integer id;
+      private Long id;
 
       /**
      * 订单ID,关联订单表
      */
-      private Integer orderId;
+      private Long orderId;
 
       /**
      * 商品ID，关联商品表
      */
-      private Integer productId;
+      private Long productId;
 
       /**
      * 商品名称

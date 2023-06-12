@@ -3,6 +3,7 @@ package com.liangzai.hello_mall_api.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.liangzai.hello_mall_api.common.api.Result;
 import com.liangzai.hello_mall_api.common.util.CopyUtil;
+import com.liangzai.hello_mall_api.entity.mbg.UserAddress;
 import com.liangzai.hello_mall_api.entity.mbg.Users;
 import com.liangzai.hello_mall_api.entity.dto.UserLogin;
 import com.liangzai.hello_mall_api.entity.dto.UserRegister;
@@ -69,7 +70,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 //            根据用户id生成token
             loginVo.setToken(UUID.randomUUID().toString());
 //            将用户信息插入data
-//            loginVo.setUsers(userDB);
+            loginVo.setUsers(userDB);
             return Result.succ(200,"登录成功",loginVo);
         }
         return Result.fail(400,"登录失败,请确认用户名与密码");
