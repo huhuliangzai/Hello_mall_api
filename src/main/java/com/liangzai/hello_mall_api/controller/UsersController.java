@@ -38,7 +38,7 @@ public class UsersController {
 //        对用户注册的Password进行MD5加密后存入数据库
 //        userRegister.setPassword(DigestUtils.md5DigestAsHex(userRegister.getPassword().getBytes()));
         boolean u = usersService.register(userRegister);
-        if(u==true){
+        if(u){
             return Result.succ(200,"注册成功",usersService.selectByLoginName(userRegister.getUserName()));
         }
         return Result.fail(404,"注册失败,用户已存在!!");
@@ -55,6 +55,9 @@ public class UsersController {
         return usersService.login(userLogin);
     }
 
-
+    @PostMapping("/editInformation")
+    public Result editInformation(@RequestBody Users users){
+        return usersService.editInformation(users);
+    }
 }
 

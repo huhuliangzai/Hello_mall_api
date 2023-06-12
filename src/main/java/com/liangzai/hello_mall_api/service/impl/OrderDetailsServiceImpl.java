@@ -1,9 +1,12 @@
 package com.liangzai.hello_mall_api.service.impl;
 
+import com.liangzai.hello_mall_api.common.api.Result;
 import com.liangzai.hello_mall_api.entity.mbg.OrderDetails;
+import com.liangzai.hello_mall_api.entity.mbg.Users;
 import com.liangzai.hello_mall_api.mapper.OrderDetailsMapper;
 import com.liangzai.hello_mall_api.service.OrderDetailsService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,5 +19,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class OrderDetailsServiceImpl extends ServiceImpl<OrderDetailsMapper, OrderDetails> implements OrderDetailsService {
+
+    @Autowired
+    private OrderDetailsMapper orderDetailsMapper;
 
 }

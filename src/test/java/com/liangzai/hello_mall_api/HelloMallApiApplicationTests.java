@@ -2,13 +2,13 @@ package com.liangzai.hello_mall_api;
 
 
 import com.liangzai.hello_mall_api.entity.mbg.*;
-import com.liangzai.hello_mall_api.entity.dto.UserLogin;
 import com.liangzai.hello_mall_api.mapper.*;
-import com.liangzai.hello_mall_api.service.UsersService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -29,9 +29,12 @@ class HelloMallApiApplicationTests {
     private CartsMapper cartsMapper;
     @Autowired
     private CartsItemsMapper cartItemsMapper;
-
     @Autowired
-    private UsersService usersService;
+    private  OrdersMapper ordersMapper;
+    @Autowired
+    private OrderDetailsMapper orderDetailsMapper;
+    @Autowired
+    private CollectionMapper collectionMapper;
 
     @Test
     void testGetAll() {
@@ -109,6 +112,54 @@ class HelloMallApiApplicationTests {
         System.out.println(cartItems);
     }
 
+    @Test
+    void selectOrdersByUserId(){
+        HashMap<String,Object> map = new HashMap<>();
+        map.put("user_id","1");
+        List<Orders> orders = ordersMapper.selectByMap(map);
+        orders.forEach(System.out::println);
+        List<Long> order_id = new ArrayList<>();
+        for(int i = 0; i < orders.size(); i++){
+            order_id.add(orders.get(i).getId());
+        }
+        System.out.println(order_id);
+    }
 
+    @Test
+    void selectOrderDetailsByOrderId(){
+        HashMap<String,Object> map = new HashMap<>();
+        map.put("user_id","1");
+        List<Orders> orders = ordersMapper.selectByMap(map);
+        System.out.println(orders);
+        HashMap<String,Object> order_map = new HashMap<>();
+        List<Object> allOrders = new ArrayList<>();
+        for(int i = 0; i < orders.size(); i++){
+            Long order_id = orders.get(i).getId();
+            order_map.put("order_id", order_id);
+            List<OrderDetails> orderList = orderDetailsMapper.selectByMap(order_map);
+            allOrders.add(orderList);
+        }
+        System.out.println(allOrders);
+    }
+
+    @Test
+    void getAllCollection(){
+        HashMap<String,Object> map = new HashMap<>();
+        map.put("user_id","1");
+        List<Collection> AllCollection = collectionMapper.selectByMap(map);
+        System.out.println(AllCollection);
+        List<Long> proId = new ArrayList<>();
+        for(int i = 0; i < AllCollection.size(); i++){
+            proId.add(AllCollection.get(i).getProductId());
+        }
+        List<Products> product = productsMapper.selectBatchIds(proId);
+        System.out.println(product);
+    }
+
+    @Test
+    void deleteProduct(){
+        Long carItemId = 3L;
+        cartItemsMapper.deleteById(carItemId);
+    }
 
 }

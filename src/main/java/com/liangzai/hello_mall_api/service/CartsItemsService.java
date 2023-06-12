@@ -16,4 +16,6 @@ import com.liangzai.hello_mall_api.entity.mbg.Users;
 public interface CartsItemsService extends IService<CartsItems> {
 
     Result getCartsItemByUser(Users users);
+
+    Boolean deleteCartsItem(CartsItems cartsItems);
 }

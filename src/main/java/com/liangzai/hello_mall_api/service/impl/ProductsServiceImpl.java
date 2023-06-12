@@ -11,6 +11,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -61,5 +62,18 @@ public class ProductsServiceImpl extends ServiceImpl<ProductsMapper, Products> i
             return Result.fail(400, "No products");
         }
         return Result.succ(200,"获取成功",products);
+    }
+
+    @Override
+    public Result getProductById(Products products) {
+        Long productId = products.getId();
+        HashMap<String,Object> map = new HashMap<>();
+        map.put("id", productId);
+        List<Products> productsList = productsMapper.selectByMap(map);
+
+        if (CollectionUtils.isEmpty(productsList)) {
+            return Result.fail(400, "NOt Product");
+        }
+        return Result.succ(productsList);
     }
 }

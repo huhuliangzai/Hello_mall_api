@@ -1,5 +1,6 @@
 package com.liangzai.hello_mall_api.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.liangzai.hello_mall_api.common.api.Result;
 import com.liangzai.hello_mall_api.common.util.CopyUtil;
@@ -70,10 +71,19 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 //            根据用户id生成token
             loginVo.setToken(UUID.randomUUID().toString());
 //            将用户信息插入data
+            userDB.setPassword(null);
             loginVo.setUsers(userDB);
             return Result.succ(200,"登录成功",loginVo);
         }
         return Result.fail(400,"登录失败,请确认用户名与密码");
+    }
+
+    @Override
+    public Result editInformation(Users users) {
+        Wrapper<Users> wrapper = new QueryWrapper<>();
+        query().eq("id",users.getId());
+        int update = usersMapper.update(users, wrapper);
+        return update >= 1 ? Result.succ(null) : Result.fail("");
     }
 
 

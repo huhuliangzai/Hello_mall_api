@@ -13,5 +13,7 @@ import java.io.Serializable;
 
      private static final long serialVersionUID=1L;
 
+     private  Long id;
+
     private String imgName;
 }

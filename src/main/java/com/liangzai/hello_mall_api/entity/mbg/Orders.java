@@ -25,7 +25,7 @@ import lombok.EqualsAndHashCode;
       /**
      * 订单ID
      */
-        @TableId(value = "id", type = IdType.AUTO)
+        @TableId(value = "id", type = IdType.ASSIGN_ID)
       private Long id;
 
       /**
@@ -33,15 +33,6 @@ import lombok.EqualsAndHashCode;
      */
       private Long userId;
 
-      /**
-     * 订单状态
-     */
-      private String status;
-
-      /**
-     * 订单总金额
-     */
-      private BigDecimal totalAmount;
 
       /**
      * 订单创建时间

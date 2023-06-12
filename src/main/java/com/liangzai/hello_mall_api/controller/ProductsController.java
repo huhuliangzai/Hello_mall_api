@@ -3,6 +3,7 @@ package com.liangzai.hello_mall_api.controller;
 
 import com.liangzai.hello_mall_api.common.api.Result;
 import com.liangzai.hello_mall_api.entity.mbg.Categories;
+import com.liangzai.hello_mall_api.entity.mbg.Products;
 import com.liangzai.hello_mall_api.service.ProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +37,9 @@ public class ProductsController {
         return productsService.getHotSaleProducts(categories);
     }
 
-
+    @GetMapping("/getProductById")
+    public Result getProductById(Products products){
+        return productsService.getProductById(products);
+    }
 }
 

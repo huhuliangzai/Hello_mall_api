@@ -18,4 +18,6 @@ public interface ProductsService extends IService<Products> {
     Result getProducts(Categories categories);
 
     Result getHotSaleProducts(Categories categories);
+
+    Result getProductById(Products products);
 }

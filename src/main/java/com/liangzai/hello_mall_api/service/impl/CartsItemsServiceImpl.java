@@ -47,4 +47,11 @@ public class CartsItemsServiceImpl extends ServiceImpl<CartsItemsMapper, CartsIt
         }
             return Result.succ(200,"Success",cartItems);
     }
+
+    @Override
+    public Boolean deleteCartsItem(CartsItems cartsItems) {
+        Long carItemId = cartsItems.getId();
+        boolean u = cartsItemsMapper.deleteById(carItemId) >1;
+        return u;
+    }
 }
