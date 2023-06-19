@@ -24,6 +24,7 @@ import lombok.EqualsAndHashCode;
       /**
      * 用户ID
      */
+
         @TableId(value = "id", type = IdType.ASSIGN_ID)
       private Long id;
 

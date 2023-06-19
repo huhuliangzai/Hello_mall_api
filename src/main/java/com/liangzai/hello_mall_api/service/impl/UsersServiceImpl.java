@@ -4,11 +4,12 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.liangzai.hello_mall_api.common.api.Result;
 import com.liangzai.hello_mall_api.common.util.CopyUtil;
-import com.liangzai.hello_mall_api.entity.mbg.UserAddress;
+import com.liangzai.hello_mall_api.entity.mbg.Carts;
 import com.liangzai.hello_mall_api.entity.mbg.Users;
 import com.liangzai.hello_mall_api.entity.dto.UserLogin;
 import com.liangzai.hello_mall_api.entity.dto.UserRegister;
 import com.liangzai.hello_mall_api.entity.vo.LoginVo;
+import com.liangzai.hello_mall_api.mapper.CartsMapper;
 import com.liangzai.hello_mall_api.mapper.UsersMapper;
 import com.liangzai.hello_mall_api.service.UsersService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,31 +34,27 @@ import java.util.UUID;
 public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements UsersService {
     @Autowired
     private UsersMapper usersMapper;
-
+    @Autowired
+    private CartsMapper cartsMapper;
 
     @Override
     public boolean register(UserRegister userRegister) {
         Users user = CopyUtil.copy(userRegister, Users.class);
+        Carts carts = new Carts();
         if (ObjectUtils.isEmpty(userRegister.getId())){
             Users userDB = selectByLoginName(userRegister.getUserName());
               if (ObjectUtils.isEmpty(userDB)){
+                  user.setCreatedAt(LocalDateTime.now());
+                  user.setUpdatedAt(LocalDateTime.now());
                 boolean u = usersMapper.insert(user)>0;
-                return u;
+                  carts.setUserId(user.getId());
+                  carts.setCartsUpdateAt(LocalDateTime.now());
+                  carts.setCartsCreatedAt(LocalDateTime.now());
+                int insert = cartsMapper.insert(carts);
+                  return u;
             }
         }
         return false;
-    }
-
-    //    通过名字查询用户
-    public Users selectByLoginName(String loginName){
-        QueryWrapper<Users> wrapper = new QueryWrapper<>();
-        wrapper.lambda().eq(Users::getUserName,loginName);
-        List<Users> usersList = usersMapper.selectList(wrapper);
-        if (CollectionUtils.isEmpty(usersList)){
-            return null;
-        }else{
-            return usersList.get(0);
-        }
     }
 
     @Override
@@ -80,11 +78,32 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 
     @Override
     public Result editInformation(Users users) {
-        Wrapper<Users> wrapper = new QueryWrapper<>();
-        query().eq("id",users.getId());
+        QueryWrapper<Users> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(Users::getId,users.getId());
         int update = usersMapper.update(users, wrapper);
         return update >= 1 ? Result.succ(null) : Result.fail("");
     }
 
+    @Override
+    public Result getUser(Users users) {
+        Long userId = users.getId();
+        Users user = usersMapper.selectById(userId);
+        if(ObjectUtils.isEmpty(user)){
+            return Result.fail("400");
+        }
+        return Result.succ(200,"获取用户成功",user);
+    }
+
+    //    通过名字查询用户
+    public Users selectByLoginName(String loginName){
+        QueryWrapper<Users> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(Users::getUserName,loginName);
+        List<Users> usersList = usersMapper.selectList(wrapper);
+        if (CollectionUtils.isEmpty(usersList)){
+            return null;
+        }else{
+            return usersList.get(0);
+        }
+    }
 
 }

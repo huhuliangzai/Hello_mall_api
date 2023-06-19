@@ -1,16 +1,17 @@
 package com.liangzai.hello_mall_api;
 
 
+import com.liangzai.hello_mall_api.common.util.CopyUtil;
 import com.liangzai.hello_mall_api.entity.mbg.*;
+import com.liangzai.hello_mall_api.entity.mbg.Collection;
 import com.liangzai.hello_mall_api.mapper.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @SpringBootTest
 class HelloMallApiApplicationTests {
@@ -160,6 +161,17 @@ class HelloMallApiApplicationTests {
     void deleteProduct(){
         Long carItemId = 3L;
         cartItemsMapper.deleteById(carItemId);
+    }
+
+    @Test
+    void createCartsByUserId(){
+        Long userId = 2L;
+        Users users = usersMapper.selectById(userId);
+        Carts carts = new Carts();
+        carts.setUserId(users.getId());
+        carts.setCartsCreatedAt(LocalDateTime.now());
+        carts.setCartsUpdateAt(LocalDateTime.now());
+        int insert = cartsMapper.insert(carts);
     }
 
 }

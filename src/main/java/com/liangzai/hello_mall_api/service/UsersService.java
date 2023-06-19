@@ -24,4 +24,6 @@ public interface UsersService extends IService<Users> {
     Result login(UserLogin userLogin);
 
     Result editInformation(Users users);
+
+    Result getUser(Users users);
 }

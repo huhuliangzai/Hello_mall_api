@@ -2,6 +2,7 @@ package com.liangzai.hello_mall_api.controller;
 
 
 import com.liangzai.hello_mall_api.common.api.Result;
+import com.liangzai.hello_mall_api.entity.dto.AddressDto;
 import com.liangzai.hello_mall_api.entity.mbg.UserAddress;
 import com.liangzai.hello_mall_api.service.UserAddressService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,11 @@ public class UserAddressController {
         Long userId = userAddress.getUserId();
         System.out.println(userId);
         return userAddressService.getAddress(userAddress);
+    }
+
+    @PostMapping("/editAddress")
+    public Result editAddress(@RequestBody AddressDto addressDto){
+        return userAddressService.insertAddress(addressDto);
     }
 }
 

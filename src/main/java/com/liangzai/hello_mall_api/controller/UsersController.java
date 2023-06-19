@@ -59,5 +59,10 @@ public class UsersController {
     public Result editInformation(@RequestBody Users users){
         return usersService.editInformation(users);
     }
+
+    @PostMapping("/getUser")
+    public Result getUser(@RequestBody Users users){
+        return usersService.getUser(users);
+    }
 }
 
