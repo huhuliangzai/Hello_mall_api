@@ -174,4 +174,17 @@ class HelloMallApiApplicationTests {
         int insert = cartsMapper.insert(carts);
     }
 
+    @Test
+    void selectCartsByUserId() {
+        Long userId = 1L;
+        Carts carts = cartsMapper.selectById(userId);
+        System.out.println(carts);
+        Long cartId = carts.getId();
+        HashMap<String,Object> map = new HashMap<>();
+        map.put("cart_id", cartId);
+        List<CartsItems> cartsItems = cartItemsMapper.selectByMap(map);
+        System.out.println(cartsItems);
+    }
+
+
 }

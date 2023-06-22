@@ -1,11 +1,15 @@
 package com.liangzai.hello_mall_api.service.impl;
 
 import com.liangzai.hello_mall_api.common.api.Result;
+import com.liangzai.hello_mall_api.common.util.CopyUtil;
+import com.liangzai.hello_mall_api.entity.dto.InsertCartItemDto;
 import com.liangzai.hello_mall_api.entity.mbg.Carts;
 import com.liangzai.hello_mall_api.entity.mbg.CartsItems;
+import com.liangzai.hello_mall_api.entity.mbg.Products;
 import com.liangzai.hello_mall_api.entity.mbg.Users;
 import com.liangzai.hello_mall_api.mapper.CartsItemsMapper;
 import com.liangzai.hello_mall_api.mapper.CartsMapper;
+import com.liangzai.hello_mall_api.mapper.ProductsMapper;
 import com.liangzai.hello_mall_api.service.CartsItemsService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.collections.CollectionUtils;
@@ -30,6 +34,8 @@ public class CartsItemsServiceImpl extends ServiceImpl<CartsItemsMapper, CartsIt
     private CartsMapper cartsMapper;
     @Autowired
     private CartsItemsMapper cartsItemsMapper;
+    @Autowired
+    private ProductsMapper productsMapper;
 
     @Override
     public Result getCartsItemByUser(Users users) {
@@ -53,5 +59,27 @@ public class CartsItemsServiceImpl extends ServiceImpl<CartsItemsMapper, CartsIt
         Long carItemId = cartsItems.getId();
         boolean u = cartsItemsMapper.deleteById(carItemId) >1;
         return u;
+    }
+
+    @Override
+    public Result insertCartsItem(InsertCartItemDto insertCartItemDto) {
+        CartsItems cartsItems = CopyUtil.copy(insertCartItemDto, CartsItems.class);
+
+        HashMap<String,Object> cart_map = new HashMap<>();
+        cart_map.put("user_id", insertCartItemDto.getUserId());
+        List<Carts> carts = cartsMapper.selectByMap(cart_map);
+        cartsItems.setCartId(carts.get(0).getId());
+
+        HashMap<String,Object> product_map = new HashMap<>();
+        product_map.put("id", insertCartItemDto.getProductId());
+        List<Products> products = productsMapper.selectByMap(product_map);
+        cartsItems.setProductName(products.get(0).getName());
+        cartsItems.setImage(products.get(0).getImage());
+        cartsItems.setProductPrice(products.get(0).getPrice());
+
+        System.out.println(cartsItems);
+        int insert = cartsItemsMapper.insert(cartsItems);
+        return insert >= 1 ?
+                Result.succ(200,"success",null) : Result.fail(400,"error",null);
     }
 }
