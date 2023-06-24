@@ -11,7 +11,7 @@
  Target Server Version : 80028 (8.0.28)
  File Encoding         : 65001
 
- Date: 20/06/2023 09:48:34
+ Date: 24/06/2023 16:04:45
 */
 
 SET NAMES utf8mb4;
@@ -53,7 +53,7 @@ CREATE TABLE `carts`  (
 -- Records of carts
 -- ----------------------------
 INSERT INTO `carts` VALUES (1, 1, '2023-06-11 16:46:17', '2023-06-11 16:46:20');
-INSERT INTO `carts` VALUES (1382124067233792, 1382124067225600, '2023-06-19 16:26:08', '2023-06-19 16:26:08');
+INSERT INTO `carts` VALUES (1382209566523392, 1382209566490624, '2023-06-20 21:25:37', '2023-06-20 21:25:37');
 
 -- ----------------------------
 -- Table structure for carts_items
@@ -69,13 +69,13 @@ CREATE TABLE `carts_items`  (
   `image` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT '商品主图',
   `total` decimal(10, 2) NULL DEFAULT NULL COMMENT '订单总价',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 1382332674138113 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of carts_items
 -- ----------------------------
-INSERT INTO `carts_items` VALUES (1, 1, 1, 'M6级雪花牛排', 138.00, 2, '1.jpg', 276.00);
-INSERT INTO `carts_items` VALUES (2, 1, 1, 'M6级雪花牛排', 138.00, 2, '1.jpg', 276.00);
+INSERT INTO `carts_items` VALUES (1382209690427392, 1382209566523392, 27, '冷冻雪花肥牛', 59.00, 2, 'hot_push/1.jpg', 118.00);
+INSERT INTO `carts_items` VALUES (1382332635561984, 1, 27, '冷冻雪花肥牛', 59.00, 1, 'hot_push/1.jpg', 59.00);
 
 -- ----------------------------
 -- Table structure for categories
@@ -115,6 +115,24 @@ CREATE TABLE `collection`  (
 INSERT INTO `collection` VALUES (1, 1, 1);
 
 -- ----------------------------
+-- Table structure for complaints
+-- ----------------------------
+DROP TABLE IF EXISTS `complaints`;
+CREATE TABLE `complaints`  (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '投诉Id',
+  `user_id` bigint NOT NULL COMMENT '投诉用户ID',
+  `user_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT '用户名',
+  `complaint` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '投诉内容',
+  `user_phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT '用户号码',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 1382475981340673 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of complaints
+-- ----------------------------
+INSERT INTO `complaints` VALUES (1, 1, '蔡老六', '太好吃啦', '1380000000');
+
+-- ----------------------------
 -- Table structure for order_details
 -- ----------------------------
 DROP TABLE IF EXISTS `order_details`;
@@ -130,7 +148,7 @@ CREATE TABLE `order_details`  (
   `shipping_address` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT '收货地址',
   `status` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT '订单状态，1为已收货，2为配送中，3为待收货',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 1382466125127686 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of order_details
@@ -138,18 +156,19 @@ CREATE TABLE `order_details`  (
 INSERT INTO `order_details` VALUES (1, 1, 1, 'M6级雪花牛排', 138.00, '1', 138.00, '蔡老六', '广东省中山市博爱七路25号中山职业技术学院', '1');
 INSERT INTO `order_details` VALUES (2, 2, 2, 'M9原切雪花牛排', 356.00, '1', 356.00, '蔡老六', '广东省中山市博爱七路25号中山职业技术学院', '2');
 INSERT INTO `order_details` VALUES (3, 3, 3, '原切雪花和牛牛肉粒', 358.00, '1', 358.00, '蔡老六', '广东省中山市博爱七路25号中山职业技术学院', '3');
+INSERT INTO `order_details` VALUES (1382466125127685, 1382467863650304, 27, '冷冻雪花肥牛', 59.00, '1', 59.00, '谢靓仔', '广东惠州市惠城区', '3');
 
 -- ----------------------------
 -- Table structure for orders
 -- ----------------------------
 DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders`  (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT '订单ID',
-  `user_id` int NOT NULL COMMENT '用户ID,关联用户表',
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '订单ID',
+  `user_id` bigint NOT NULL COMMENT '用户ID,关联用户表',
   `orders_created_at` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '订单创建时间',
   `orders_updated_at` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '订单更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Fixed;
+) ENGINE = MyISAM AUTO_INCREMENT = 1382467863650305 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Fixed;
 
 -- ----------------------------
 -- Records of orders
@@ -157,6 +176,7 @@ CREATE TABLE `orders`  (
 INSERT INTO `orders` VALUES (1, 1, '2023-06-14 21:32:47', '2023-06-14 21:32:51');
 INSERT INTO `orders` VALUES (2, 1, '2023-06-14 21:33:40', '2023-06-14 21:33:40');
 INSERT INTO `orders` VALUES (3, 1, '2023-06-14 21:33:31', '2023-06-14 21:33:34');
+INSERT INTO `orders` VALUES (1382467863650304, 1, '2023-06-24 13:00:41', '2023-06-24 13:00:41');
 
 -- ----------------------------
 -- Table structure for product_attributes
@@ -266,7 +286,7 @@ CREATE TABLE `users`  (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES (1, '蔡老六', '123456', '12345678@qq.com', '男', 13800000000, '打原神', '广东省中山市博爱七路25号', '1.jpg', '2023-06-19 16:50:24', '2023-06-19 16:50:24');
-INSERT INTO `users` VALUES (1382124067225600, '谢靓仔', '123456', '1821995845@qq.com', '男', 17819506095, '打星穹', '广东省惠州市惠城区', NULL, '2023-06-19 16:53:08', '2023-06-19 16:53:08');
+INSERT INTO `users` VALUES (1, '蔡老六', '123456', '1234567@qq.com', '男', 13800000000, '打原神', '广东省中山市博爱七路25号', '1.jpg', '2023-06-23 23:05:48', '2023-06-24 14:22:45');
+INSERT INTO `users` VALUES (1382209566490624, '谢靓仔', '123456', '1821995845@qq.cpm', '男', 17819506095, '敲代码', '广东省中山市博爱七路25号中山职业技术学院', 'xieliangzai.jpg', '2023-06-24 15:09:47', '2023-06-24 15:11:16');
 
 SET FOREIGN_KEY_CHECKS = 1;
