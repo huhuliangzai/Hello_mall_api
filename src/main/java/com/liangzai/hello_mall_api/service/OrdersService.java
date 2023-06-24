@@ -1,6 +1,7 @@
 package com.liangzai.hello_mall_api.service;
 
 import com.liangzai.hello_mall_api.common.api.Result;
+import com.liangzai.hello_mall_api.entity.dto.OrderDto;
 import com.liangzai.hello_mall_api.entity.mbg.Orders;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.liangzai.hello_mall_api.entity.mbg.Users;
@@ -17,4 +18,6 @@ import java.util.List;
  */
 public interface OrdersService extends IService<Orders> {
     Result getAllOrders(Users users);
+
+    Result createOrder(OrderDto orderDto);
 }

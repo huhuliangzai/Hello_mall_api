@@ -1,5 +1,6 @@
 package com.liangzai.hello_mall_api.service.impl;
 
+import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.liangzai.hello_mall_api.common.api.Result;
 import com.liangzai.hello_mall_api.common.util.CopyUtil;
 import com.liangzai.hello_mall_api.entity.dto.InsertCartItemDto;
@@ -81,5 +82,17 @@ public class CartsItemsServiceImpl extends ServiceImpl<CartsItemsMapper, CartsIt
         int insert = cartsItemsMapper.insert(cartsItems);
         return insert >= 1 ?
                 Result.succ(200,"success",null) : Result.fail(400,"error",null);
+    }
+
+    @Override
+    public Result getItem(CartsItems cartsItems) {
+        HashMap<String,Object> map = new HashMap<>();
+        map.put("id", cartsItems.getId());
+        List<CartsItems> item = cartsItemsMapper.selectByMap(map);
+        System.out.println(item);
+        if(ObjectUtils.isEmpty(item)){
+            return Result.fail(400,"nothing",null);
+        }
+        return Result.succ(200,"success",item);
     }
 }

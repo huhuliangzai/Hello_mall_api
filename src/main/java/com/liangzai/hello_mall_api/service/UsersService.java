@@ -1,6 +1,7 @@
 package com.liangzai.hello_mall_api.service;
 
 import com.liangzai.hello_mall_api.common.api.Result;
+import com.liangzai.hello_mall_api.entity.dto.UpdataAvatarDto;
 import com.liangzai.hello_mall_api.entity.mbg.Users;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.liangzai.hello_mall_api.entity.dto.UserLogin;
@@ -26,4 +27,6 @@ public interface UsersService extends IService<Users> {
     Result editInformation(Users users);
 
     Result getUser(Users users);
+
+    Result updateAvatar(UpdataAvatarDto updataAvatarDto);
 }

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.liangzai.hello_mall_api.common.api.Result;
 import com.liangzai.hello_mall_api.common.util.CopyUtil;
+import com.liangzai.hello_mall_api.entity.dto.UpdataAvatarDto;
 import com.liangzai.hello_mall_api.entity.mbg.Carts;
 import com.liangzai.hello_mall_api.entity.mbg.Users;
 import com.liangzai.hello_mall_api.entity.dto.UserLogin;
@@ -92,6 +93,20 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
             return Result.fail("400");
         }
         return Result.succ(200,"获取用户成功",user);
+    }
+
+    @Override
+    public Result updateAvatar(UpdataAvatarDto updataAvatarDto) {
+        QueryWrapper<Users> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(Users::getId,updataAvatarDto.getUserID());
+        Users user = usersMapper.selectById(updataAvatarDto.getUserID());
+        user.setAvatar(updataAvatarDto.getAvatar());
+        user.setUpdatedAt(LocalDateTime.now());
+        int update = usersMapper.update(user, wrapper);
+        return update >= 1 ?
+                Result.succ(200,"更换成功",null)
+                :
+                Result.fail(400,"更换失败",null);
     }
 
     //    通过名字查询用户

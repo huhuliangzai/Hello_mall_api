@@ -41,5 +41,10 @@ public class ProductsController {
     public Result getProductById(Products products){
         return productsService.getProductById(products);
     }
+
+    @GetMapping("/searchProduct")
+    public Result searchProduct(Products products){
+        return productsService.searchProduct(products);
+    }
 }
 

@@ -21,4 +21,6 @@ public interface CartsItemsService extends IService<CartsItems> {
     Boolean deleteCartsItem(CartsItems cartsItems);
 
     Result insertCartsItem(InsertCartItemDto insertCartItemDto);
+
+    Result getItem(CartsItems cartsItems);
 }

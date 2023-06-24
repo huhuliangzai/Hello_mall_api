@@ -1,6 +1,7 @@
 package com.liangzai.hello_mall_api;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.liangzai.hello_mall_api.common.util.CopyUtil;
 import com.liangzai.hello_mall_api.entity.mbg.*;
 import com.liangzai.hello_mall_api.entity.mbg.Collection;
@@ -186,5 +187,64 @@ class HelloMallApiApplicationTests {
         System.out.println(cartsItems);
     }
 
+    @Test
+    void selectProductByName(){
+        QueryWrapper<Products> queryWrapper = new QueryWrapper<>();
+        queryWrapper
+                .like("name","牛肉");
+        List<Map<String, Object>> maps = productsMapper.selectMaps(queryWrapper);
+        maps.forEach(System.out::println);
+    }
+
+    @Test
+    void insertCollection(){
+        Collection collection = new Collection();
+
+        collection.setUserId(1L);
+        collection.setProductId(20L);
+
+        int insert = collectionMapper.insert(collection);
+    }
+
+    @Test
+    void UpdateAvatar(){
+        QueryWrapper<Users> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(Users::getId,1L);
+        Users user = usersMapper.selectById(1L);
+        user.setAvatar("1.jpg");
+        user.setUpdatedAt(LocalDateTime.now());
+        usersMapper.update(user,wrapper);
+    }
+
+    @Test
+    void createOrder(){
+        Orders orders = new Orders();
+        orders.setUserId(1L);
+        orders.setOrdersCreatedAt(LocalDateTime.now());
+        orders.setOrdersUpdatedAt(LocalDateTime.now());
+        int insert = ordersMapper.insert(orders);
+
+        OrderDetails orderDetails = new OrderDetails();
+        orderDetails.setOrderId(orders.getId());
+        CartsItems cartsItem = cartItemsMapper.selectById(1382332635561984L);
+        orderDetails.setProductId(cartsItem.getProductId());
+        orderDetails.setProductName(cartsItem.getProductName());
+        orderDetails.setProductPrice(cartsItem.getProductPrice());
+        orderDetails.setQuantity(String.valueOf(cartsItem.getQuantity()));
+        orderDetails.setOrderTotal(cartsItem.getTotal());
+        orderDetails.setReceiver("哈哈哈");
+        orderDetails.setShippingAddress("广东惠州");
+        orderDetails.setStatus("2");
+        int insert1 = orderDetailsMapper.insert(orderDetails);
+    }
+
+    @Test
+    void  changeStatus(){
+        QueryWrapper<OrderDetails> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(OrderDetails::getId,3L);
+        OrderDetails orderDetailItem = orderDetailsMapper.selectById(3L);
+        orderDetailItem.setStatus("3");
+        int update = orderDetailsMapper.update(orderDetailItem,wrapper);
+    }
 
 }

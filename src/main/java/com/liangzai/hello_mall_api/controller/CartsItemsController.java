@@ -51,5 +51,10 @@ public class CartsItemsController {
         System.out.println(insertCartItemDto);
         return cartsItemsService.insertCartsItem(insertCartItemDto);
     }
+
+    @GetMapping("/getItem")
+    public Result getItem(CartsItems cartsItems){
+        return cartsItemsService.getItem(cartsItems);
+    }
 }
 

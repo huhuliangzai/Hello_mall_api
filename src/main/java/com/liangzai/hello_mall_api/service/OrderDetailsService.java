@@ -16,4 +16,5 @@ import com.liangzai.hello_mall_api.entity.mbg.Users;
 public interface OrderDetailsService extends IService<OrderDetails> {
 
 
+    Result changeStatus(OrderDetails orderDetails);
 }

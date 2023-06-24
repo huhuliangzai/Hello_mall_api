@@ -1,5 +1,6 @@
 package com.liangzai.hello_mall_api.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.liangzai.hello_mall_api.common.api.Result;
 import com.liangzai.hello_mall_api.entity.mbg.Categories;
 import com.liangzai.hello_mall_api.entity.mbg.Products;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -75,5 +77,17 @@ public class ProductsServiceImpl extends ServiceImpl<ProductsMapper, Products> i
             return Result.fail(400, "NOt Product");
         }
         return Result.succ(productsList);
+    }
+
+    @Override
+    public Result searchProduct(Products products) {
+        QueryWrapper<Products> queryWrapper = new QueryWrapper<>();
+        queryWrapper
+                .like("name", products.getName());
+        List<Map<String, Object>> productsList = productsMapper.selectMaps(queryWrapper);
+        if(CollectionUtils.isEmpty(productsList)) {
+            return Result.fail(400, "empty products");
+        }
+        return Result.succ(200,"success",productsList);
     }
 }

@@ -26,5 +26,9 @@ public class OrderDetailsController {
     @Autowired
     private OrderDetailsService orderDetailsService;
 
+    @PostMapping("/changeStatus")
+    public Result changeStatus(@RequestBody OrderDetails orderDetails){
+        return orderDetailsService.changeStatus(orderDetails);
+    }
 }
 

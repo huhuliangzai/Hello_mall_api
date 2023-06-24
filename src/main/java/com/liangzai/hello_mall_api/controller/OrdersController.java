@@ -2,6 +2,7 @@ package com.liangzai.hello_mall_api.controller;
 
 
 import com.liangzai.hello_mall_api.common.api.Result;
+import com.liangzai.hello_mall_api.entity.dto.OrderDto;
 import com.liangzai.hello_mall_api.entity.mbg.Orders;
 import com.liangzai.hello_mall_api.entity.mbg.Users;
 import com.liangzai.hello_mall_api.service.OrdersService;
@@ -32,9 +33,12 @@ public class OrdersController {
 
     @PostMapping ("/getAllOrders")
     public Result getAllOrders(@RequestBody Users users){
-        Long userId = users.getId();
-        System.out.println("用户Id:"+userId);
         return ordersService.getAllOrders(users);
+    }
+
+    @PostMapping("/createOrder")
+    public Result createOrder(@RequestBody OrderDto orderDto){
+        return ordersService.createOrder(orderDto);
     }
 }
 

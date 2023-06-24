@@ -2,15 +2,20 @@ package com.liangzai.hello_mall_api.controller;
 
 
 import com.liangzai.hello_mall_api.common.api.Result;
+import com.liangzai.hello_mall_api.entity.dto.UpdataAvatarDto;
 import com.liangzai.hello_mall_api.entity.mbg.Users;
 import com.liangzai.hello_mall_api.entity.dto.UserLogin;
 import com.liangzai.hello_mall_api.entity.dto.UserRegister;
 import com.liangzai.hello_mall_api.entity.vo.LoginVo;
 import com.liangzai.hello_mall_api.mapper.UsersMapper;
 import com.liangzai.hello_mall_api.service.UsersService;
+import org.apache.commons.collections.MapUtils;
+import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Paths;
 import java.util.List;
 
 /**
@@ -64,5 +69,29 @@ public class UsersController {
     public Result getUser(@RequestBody Users users){
         return usersService.getUser(users);
     }
+
+
+    //文件上传
+    //指定上传文件的路径
+    private  static final String UPLOAD_DIR = "D:/Desktop/MyVueProject/Hello_mall/Hello_mall_vue/src/assets/image/User/avater";
+    @PostMapping("/upload")
+    public Result uploadFile(@RequestParam("file") MultipartFile file){
+        try {
+            String fileName = file.getOriginalFilename();//构建上传文件的保存路径
+            String filePath = Paths.get(UPLOAD_DIR,fileName).toString();//保存文件到本地文件夹
+            file.transferTo(Paths.get(filePath));
+            System.out.println(fileName);
+            return Result.succ(200,"文件上传成功",file.getOriginalFilename());
+        }catch (Exception e){
+            e.printStackTrace();//返回错误信息
+            return Result.fail(400, "上传失败",HttpStatus.SC_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/updateAvatar")
+    public Result updateAvatar(@RequestBody UpdataAvatarDto updataAvatarDto){
+        return usersService.updateAvatar(updataAvatarDto);
+    }
+
 }
 
